@@ -7,7 +7,7 @@ async function fetchDoggo(element) {
     element.value = "Fetch a Doggo"
 }
 
-async function fetchAllDoggo(element) {
+async function fetchAllDoggo() {
     let response = await fetch("https://dog.ceo/api/breeds/list/all")
     let responseObject = await response.json()
     for (x in responseObject.message) {
@@ -16,7 +16,17 @@ async function fetchAllDoggo(element) {
     //console.log(JSON.stringify(responseObject.message))
 }
 
+async function fetchParticularDoggo() {
+    let fetchString = "https://dog.ceo/api/breed/" + document.getElementById("dropdownOptions").value + "/images/random"
+    let response = await fetch(fetchString)
+    let responseObject = await response.json()
+    substr = responseObject.message.substring(30,)
+    document.getElementById("content").innerHTML = `<img src=${responseObject.message} width="300px"><br><p>The Breed of this Doggo is: ${substr.substring(0,substr.indexOf('/'))}</p>` + document.getElementById("content").innerHTML
+    // console.log(response)
+    // console.log(document.getElementById("dropdownOptions").value)
+}
+
 function renderDoggo(doggoURL) {
     substr = doggoURL.substring(30,)
-    document.getElementById("content").innerHTML += `<img src=${doggoURL} max-width=300px><br><p>The Breed of this Doggo is: ${substr.substring(0,substr.indexOf('/'))}</p>`
+    document.getElementById("content").innerHTML = `<img src=${doggoURL} width="300px"><br><p>The Breed of this Doggo is: ${substr.substring(0,substr.indexOf('/'))}</p>` + document.getElementById("content").innerHTML
 }
