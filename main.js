@@ -10,10 +10,13 @@ async function fetchDoggo(element) {
 async function fetchAllDoggo(element) {
     let response = await fetch("https://dog.ceo/api/breeds/list/all")
     let responseObject = await response.json()
-    console.log(JSON.stringify(responseObject.message))
+    for (x in responseObject.message) {
+        document.getElementById("dropdownOptions").innerHTML += `<option value="${x}">${x}</option>`
+    }
+    //console.log(JSON.stringify(responseObject.message))
 }
 
 function renderDoggo(doggoURL) {
     substr = doggoURL.substring(30,)
-    document.getElementById("content").innerHTML += `<img src=${doggoURL} max-width=600px max-height=450px><br><p>The Breed of this Doggo is: ${substr.substring(0,substr.indexOf('/'))}</p>`
+    document.getElementById("content").innerHTML += `<img src=${doggoURL} max-width=300px><br><p>The Breed of this Doggo is: ${substr.substring(0,substr.indexOf('/'))}</p>`
 }
